@@ -38,7 +38,7 @@ fi
 # 设置 app.py 的权限
 chmod 644 app.py
 
-# 创建虚拟环境
+# 创建 Python 虚拟环境
 echo "创建 Python 虚拟环境..."
 python3 -m venv $VENV_DIR
 
@@ -122,6 +122,9 @@ systemctl status gost_web --no-pager
 echo "配置防火墙规则..."
 ufw allow 5000/tcp
 ufw allow 22/tcp  # 确保允许 SSH 连接
+
+# 启用 UFW
+echo "y" | ufw enable
 
 # 检查防火墙状态
 echo "查看防火墙状态..."
