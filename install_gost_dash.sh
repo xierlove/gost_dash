@@ -8,7 +8,7 @@ fi
 
 # 定义变量
 PROJECT_DIR="/opt/gost_web"
-APP_PY_URL="https://raw.githubusercontent.com/jiuerkeji/gost_dash/refs/heads/main/app.py"
+APP_PY_URL="https://raw.githubusercontent.com/xierlove/gost_dash/refs/heads/main/app.py"
 GOST_VERSION="v2.11.1"  # 你可以根据需要更改版本
 GOST_FILE="gost-linux-amd64-${GOST_VERSION}.gz"
 GOST_URL="https://github.com/ginuerzh/gost/releases/download/${GOST_VERSION}/${GOST_FILE}"
