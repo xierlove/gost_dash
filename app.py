@@ -31,100 +31,163 @@ HTML_TEMPLATE = """
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>xierlove 转发</title>
+    <title>xierlove 转发配置</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f4f4f4;
-    }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
 
-    .container {
-        width: 700px;
-        margin: 50px auto;
-        padding: 30px;
-        background: #fff;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
+        .container {
+            width: 90%;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 40px;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
 
-    h1 {
-        text-align: center;
-        margin-bottom: 20px;
-    }
+        h1 {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #343a40;
+            margin-bottom: 30px;
+        }
 
-    form label {
-        display: block;
-        margin-top: 10px;
-    }
+        h2 {
+            font-size: 1.75rem;
+            margin-top: 30px;
+            color: #495057;
+        }
 
-    form input, form select {
-        width: 100%;
-        padding: 8px;
-        margin-top: 5px;
-        box-sizing: border-box;
-    }
+        p {
+            font-size: 1.1rem;
+            color: #6c757d;
+            text-align: center;
+        }
 
-    button {
-        margin-top: 20px;
-        padding: 10px 20px;
-        background: #28a745;
-        border: none;
-        color: #fff;
-        font-size: 16px;
-        cursor: pointer;
-    }
+        form label {
+            font-size: 1.1rem;
+            color: #495057;
+            margin-top: 15px;
+            display: block;
+        }
 
-    button:hover {
-        background: #218838;
-    }
+        form input,
+        form select {
+            width: 100%;
+            padding: 12px;
+            margin-top: 8px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            box-sizing: border-box;
+            font-size: 1rem;
+            background-color: #f8f9fa;
+        }
 
-    .alert {
-        padding: 10px;
-        margin-bottom: 15px;
-        border-radius: 4px;
-    }
+        form input:focus,
+        form select:focus {
+            border-color: #007bff;
+            outline: none;
+            background-color: #ffffff;
+        }
 
-    .alert.success {
-        background-color: #d4edda;
-        color: #155724;
-    }
+        button {
+            padding: 12px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
 
-    .alert.danger {
-        background-color: #f8d7da;
-        color: #721c24;
-    }
+        button:hover {
+            background-color: #0056b3;
+        }
 
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 30px;
-    }
+        .alert {
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
 
-    table, th, td {
-        border: 1px solid #ddd;
-    }
+        .alert.success {
+            background-color: #d4edda;
+            color: #155724;
+        }
 
-    th, td {
-        padding: 12px;
-        text-align: left;
-    }
+        .alert.danger {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
 
-    th {
-        background-color: #f2f2f2;
-    }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 30px;
+        }
 
-    .delete-button {
-        background-color: #dc3545;
-        color: white;
-        border: none;
-        padding: 5px 10px;
-        cursor: pointer;
-        border-radius: 4px;
-    }
+        table th,
+        table td {
+            padding: 15px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
 
-    .delete-button:hover {
-        background-color: #c82333;
-    }
+        table th {
+            background-color: #f8f9fa;
+            color: #495057;
+        }
+
+        table tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .delete-button {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            cursor: pointer;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+
+        .delete-button:hover {
+            background-color: #c82333;
+        }
+
+        .delete-button:focus {
+            outline: none;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            button {
+                font-size: 1rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -133,13 +196,13 @@ HTML_TEMPLATE = """
         <p>当前操作系统：{{ os_type }}</p>
 
         {% with messages = get_flashed_messages(with_categories=true) %}
-          {% if messages %}
-            {% for category, message in messages %}
-              <div class="alert {{ category }}">
-                {{ message }}
-              </div>
-            {% endfor %}
-          {% endif %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert {{ category }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
         {% endwith %}
 
         <h2>创建新的转发规则</h2>
@@ -169,30 +232,30 @@ HTML_TEMPLATE = """
 
         <h2>现有转发规则</h2>
         {% if rules %}
-        <table>
-            <tr>
-                <th>ID</th>
-                <th>协议</th>
-                <th>本地地址:端口</th>
-                <th>远程地址:端口</th>
-                <th>操作</th>
-            </tr>
-            {% for rule in rules %}
-            <tr>
-                <td>{{ loop.index }}</td>
-                <td>{{ rule.protocol.upper() }}</td>
-                <td>{{ rule.local_addr }}:{{ rule.local_port }}</td>
-                <td>{{ rule.remote_addr }}:{{ rule.remote_port }}</td>
-                <td>
-                    <form method="POST" action="{{ url_for('delete_rule', rule_id=loop.index0) }}">
-                        <button type="submit" class="delete-button">删除</button>
-                    </form>
-                </td>
-            </tr>
-            {% endfor %}
-        </table>
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>协议</th>
+                    <th>本地地址:端口</th>
+                    <th>远程地址:端口</th>
+                    <th>操作</th>
+                </tr>
+                {% for rule in rules %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td>{{ rule.protocol.upper() }}</td>
+                        <td>{{ rule.local_addr }}:{{ rule.local_port }}</td>
+                        <td>{{ rule.remote_addr }}:{{ rule.remote_port }}</td>
+                        <td>
+                            <form method="POST" action="{{ url_for('delete_rule', rule_id=loop.index0) }}">
+                                <button type="submit" class="delete-button">删除</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
         {% else %}
-        <p>暂无转发规则。</p>
+            <p>暂无转发规则。</p>
         {% endif %}
     </div>
 </body>
