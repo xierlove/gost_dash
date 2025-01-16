@@ -15,9 +15,9 @@ GOST_URL="https://github.com/ginuerzh/gost/releases/download/v2.11.1/gost-linux-
 GOST_BINARY="gost"
 SYSTEMD_SERVICE="/etc/systemd/system/gost_web.service"
 FLASK_PORT=5000
-SECRET_KEY="your_secret_key"  # 请在下载后手动更改为强密码
-USERNAME="admin"              # 默认用户名
-PASSWORD="your_password"      # 默认密码，请在下载后手动更改为强密码
+SECRET_KEY="xierlove"  # 请在下载后手动更改为强密码
+USERNAME="xierlove"              # 默认用户名
+PASSWORD="xierlove"      # 默认密码，请在下载后手动更改为强密码
 
 # 检查是否以root用户运行
 if [ "$EUID" -ne 0 ]; then
