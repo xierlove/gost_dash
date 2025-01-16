@@ -33,10 +33,12 @@ HTML_TEMPLATE = """
     <meta charset="UTF-8">
     <title>xierlove 转发配置</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
+        /* 基础样式 */
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f8f9fa;
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f7fa;
             color: #333;
             margin: 0;
             padding: 0;
@@ -46,42 +48,50 @@ HTML_TEMPLATE = """
             width: 90%;
             max-width: 1200px;
             margin: 50px auto;
-            padding: 40px;
             display: flex;
             justify-content: space-between;
             gap: 40px;
+            flex-wrap: wrap;
         }
 
-        .card {
+        .left-column, .right-column {
             background: #fff;
             border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            padding: 20px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+            padding: 30px;
             width: 48%;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        .left-column:hover, .right-column:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
         }
 
         h1 {
-            text-align: center;
             font-size: 2.5rem;
-            color: #343a40;
+            color: #2c3e50;
+            text-align: center;
             margin-bottom: 30px;
+            letter-spacing: 1px;
         }
 
         h2 {
-            font-size: 1.75rem;
-            margin-top: 20px;
-            color: #495057;
+            font-size: 1.8rem;
+            color: #34495e;
+            margin-bottom: 20px;
         }
 
         p {
             font-size: 1.1rem;
-            color: #6c757d;
+            color: #7f8c8d;
             text-align: center;
         }
 
+        /* 表单 */
         form label {
-            font-size: 1.1rem;
-            color: #495057;
+            font-size: 1.2rem;
+            color: #2c3e50;
             margin-top: 15px;
             display: block;
         }
@@ -89,25 +99,25 @@ HTML_TEMPLATE = """
         form input,
         form select {
             width: 100%;
-            padding: 12px;
+            padding: 14px;
             margin-top: 8px;
             border-radius: 8px;
             border: 1px solid #ddd;
-            box-sizing: border-box;
             font-size: 1rem;
-            background-color: #f8f9fa;
+            background-color: #ecf0f1;
+            transition: border 0.3s ease;
         }
 
         form input:focus,
         form select:focus {
-            border-color: #007bff;
+            border-color: #3498db;
             outline: none;
             background-color: #ffffff;
         }
 
         button {
-            padding: 12px 20px;
-            background-color: #007bff;
+            padding: 14px 20px;
+            background-color: #3498db;
             color: #fff;
             border: none;
             border-radius: 8px;
@@ -115,18 +125,21 @@ HTML_TEMPLATE = """
             cursor: pointer;
             width: 100%;
             margin-top: 20px;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s ease, transform 0.3s ease;
         }
 
         button:hover {
-            background-color: #0056b3;
+            background-color: #2980b9;
+            transform: translateY(-3px);
         }
 
+        /* 提示消息 */
         .alert {
-            padding: 15px;
+            padding: 16px;
             margin-bottom: 20px;
-            border-radius: 6px;
-            font-size: 1rem;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            transition: opacity 0.5s ease;
         }
 
         .alert.success {
@@ -139,53 +152,56 @@ HTML_TEMPLATE = """
             color: #721c24;
         }
 
+        /* 表格 */
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 30px;
+            border-radius: 8px;
+            overflow: hidden;
         }
 
         table th,
         table td {
-            padding: 15px;
+            padding: 14px;
             text-align: left;
             border: 1px solid #ddd;
+            font-size: 1.1rem;
         }
 
         table th {
-            background-color: #f8f9fa;
-            color: #495057;
+            background-color: #f1f1f1;
+            color: #2c3e50;
         }
 
         table tr:hover {
-            background-color: #f1f1f1;
+            background-color: #ecf0f1;
         }
 
         .delete-button {
-            background-color: #dc3545;
+            background-color: #e74c3c;
             color: white;
             border: none;
             padding: 8px 15px;
             cursor: pointer;
             border-radius: 6px;
             font-size: 1rem;
+            transition: background-color 0.3s ease, transform 0.3s ease;
         }
 
         .delete-button:hover {
-            background-color: #c82333;
+            background-color: #c0392b;
+            transform: translateY(-3px);
         }
 
-        .delete-button:focus {
-            outline: none;
-        }
-
+        /* 响应式设计 */
         @media (max-width: 768px) {
             .container {
                 flex-direction: column;
                 gap: 20px;
             }
 
-            .card {
+            .left-column, .right-column {
                 width: 100%;
             }
 
@@ -200,12 +216,17 @@ HTML_TEMPLATE = """
             button {
                 font-size: 1rem;
             }
+
+            .alert {
+                font-size: 1rem;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="card">
+        <!-- 左侧表单 -->
+        <div class="left-column">
             <h1>xierlove 转发配置</h1>
             <p>当前操作系统：{{ os_type }}</p>
 
@@ -245,7 +266,8 @@ HTML_TEMPLATE = """
             </form>
         </div>
 
-        <div class="card">
+        <!-- 右侧展示已有规则 -->
+        <div class="right-column">
             <h2>现有转发规则</h2>
             {% if rules %}
                 <table>
