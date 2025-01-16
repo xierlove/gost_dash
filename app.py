@@ -43,29 +43,31 @@ HTML_TEMPLATE = """
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #6b7bff, #4e73df);
+            background: #f0f4f8; /* 浅色背景 */
             color: #333;
-            padding: 0;
-            overflow-x: hidden;
+            padding: 20px;
         }
 
         .container {
             max-width: 1200px;
-            margin: 50px auto;
+            margin: 0 auto;
             display: flex;
             flex-wrap: wrap;
-            justify-content: space-between;
             gap: 30px;
+            justify-content: space-between;
             padding: 30px;
+            overflow: hidden; /* 防止内容溢出 */
         }
 
         .form-container, .rules-container {
             width: 48%;
-            background: #fff;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease-in-out;
+            border: 1px solid #e0e4e8; /* 边框 */
+            overflow: hidden;
         }
 
         .form-container:hover, .rules-container:hover {
@@ -74,26 +76,26 @@ HTML_TEMPLATE = """
 
         h1 {
             text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            color: #343a40;
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: #495057;
         }
 
         h2 {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             margin-bottom: 20px;
             color: #495057;
         }
 
         p {
-            font-size: 1.1rem;
+            font-size: 1rem;
             color: #6c757d;
             text-align: center;
             margin-top: 20px;
         }
 
         form label {
-            font-size: 1.1rem;
+            font-size: 1rem;
             color: #495057;
             margin-top: 15px;
             display: block;
@@ -110,6 +112,7 @@ HTML_TEMPLATE = """
             font-size: 1rem;
             background-color: #f8f9fa;
             transition: border-color 0.3s ease;
+            word-wrap: break-word; /* 防止长文字溢出 */
         }
 
         form input:focus,
@@ -125,7 +128,7 @@ HTML_TEMPLATE = """
             color: #fff;
             border: none;
             border-radius: 8px;
-            font-size: 1.1rem;
+            font-size: 1rem;
             cursor: pointer;
             width: 100%;
             margin-top: 20px;
@@ -158,13 +161,15 @@ HTML_TEMPLATE = """
             width: 100%;
             border-collapse: collapse;
             margin-top: 30px;
+            table-layout: fixed; /* 保证表格内容不会溢出 */
         }
 
         table th,
         table td {
-            padding: 15px;
+            padding: 12px;
             text-align: left;
             border: 1px solid #ddd;
+            word-wrap: break-word; /* 防止长文字溢出 */
         }
 
         table th {
@@ -207,6 +212,14 @@ HTML_TEMPLATE = """
             .form-container, .rules-container {
                 width: 90%;
             }
+        }
+
+        /* Prevent table content overflow */
+        table td,
+        table th {
+            max-width: 200px; /* 限制单元格最大宽度 */
+            overflow: hidden;
+            text-overflow: ellipsis; /* 显示省略号 */
         }
     </style>
 </head>
