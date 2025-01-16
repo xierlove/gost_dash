@@ -99,12 +99,7 @@ systemctl start gost_web
 
 # 配置防火墙
 echo "配置防火墙..."
-# 允许 Flask 应用端口
-ufw allow $FLASK_PORT
-# 允许 SSH 端口（默认22）
-ufw allow 22
-# 启用防火墙
-echo "y" | ufw enable
+ufw disable
 
 echo "安装和配置完成。请访问 http://<服务器IP>:$FLASK_PORT 进行管理。"
 echo "默认登录凭证："
