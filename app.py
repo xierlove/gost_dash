@@ -7,14 +7,14 @@ import os
 import json
 
 app = Flask(__name__)
-app.secret_key = b'}N\xf5\t\x10\x08W\xf6W>\x93d\x18\xbc\xca\xb3\x10\xf5\xd1\x8d\x98>\x1aa'  # 你的密钥
+app.secret_key = 'your_secret_key'  # 请更改为一个强密码
 
 # 初始化认证
 auth = HTTPBasicAuth()
 
 # 设置用户名和密码
 users = {
-    "xierlove": generate_password_hash("xierlove")  # 请更改为你想要的用户名和密码
+    "admin": generate_password_hash("your_password")  # 请更改为你想要的用户名和密码
 }
 
 @auth.verify_password
