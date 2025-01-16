@@ -31,7 +31,7 @@ HTML_TEMPLATE = """
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>GOST 转发配置</title>
+    <title>xierlove 转发</title>
     <style>
     body {
         font-family: Arial, sans-serif;
