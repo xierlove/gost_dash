@@ -124,7 +124,7 @@ HTML_TEMPLATE = """
 
         button {
             padding: 12px 20px;
-            background-color: #28a745;
+            background-color: #3498db;
             color: #fff;
             border: none;
             border-radius: 8px;
