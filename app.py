@@ -129,7 +129,7 @@ HTML_TEMPLATE = """
 </head>
 <body>
     <div class="container">
-        <h1>GOST 转发配置</h1>
+        <h1>xierlove 转发配置</h1>
         <p>当前操作系统：{{ os_type }}</p>
 
         {% with messages = get_flashed_messages(with_categories=true) %}
