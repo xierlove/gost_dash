@@ -44,12 +44,20 @@ HTML_TEMPLATE = """
 
         .container {
             width: 90%;
-            max-width: 800px;
+            max-width: 1200px;
             margin: 50px auto;
             padding: 40px;
+            display: flex;
+            justify-content: space-between;
+            gap: 40px;
+        }
+
+        .card {
             background: #fff;
             border-radius: 12px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 48%;
         }
 
         h1 {
@@ -61,7 +69,7 @@ HTML_TEMPLATE = """
 
         h2 {
             font-size: 1.75rem;
-            margin-top: 30px;
+            margin-top: 20px;
             color: #495057;
         }
 
@@ -173,7 +181,12 @@ HTML_TEMPLATE = """
 
         @media (max-width: 768px) {
             .container {
-                padding: 20px;
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .card {
+                width: 100%;
             }
 
             h1 {
@@ -192,71 +205,75 @@ HTML_TEMPLATE = """
 </head>
 <body>
     <div class="container">
-        <h1>xierlove 转发配置</h1>
-        <p>当前操作系统：{{ os_type }}</p>
+        <div class="card">
+            <h1>xierlove 转发配置</h1>
+            <p>当前操作系统：{{ os_type }}</p>
 
-        {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-                {% for category, message in messages %}
-                    <div class="alert {{ category }}">
-                        {{ message }}
-                    </div>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert {{ category }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
 
-        <h2>创建新的转发规则</h2>
-        <form method="POST">
-            <label for="protocol">协议:</label>
-            <select id="protocol" name="protocol" required>
-                <option value="tcp">TCP</option>
-                <option value="udp">UDP</option>
-                <option value="http">HTTP</option>
-                <option value="https">HTTPS</option>
-            </select>
+            <h2>创建新的转发规则</h2>
+            <form method="POST">
+                <label for="protocol">协议:</label>
+                <select id="protocol" name="protocol" required>
+                    <option value="tcp">TCP</option>
+                    <option value="udp">UDP</option>
+                    <option value="http">HTTP</option>
+                    <option value="https">HTTPS</option>
+                </select>
 
-            <label for="local_addr">本地地址:</label>
-            <input type="text" id="local_addr" name="local_addr" value="127.0.0.1" required>
+                <label for="local_addr">本地地址:</label>
+                <input type="text" id="local_addr" name="local_addr" value="127.0.0.1" required>
 
-            <label for="local_port">本地端口:</label>
-            <input type="number" id="local_port" name="local_port" value="8080" required>
+                <label for="local_port">本地端口:</label>
+                <input type="number" id="local_port" name="local_port" value="8080" required>
 
-            <label for="remote_addr">远程地址:</label>
-            <input type="text" id="remote_addr" name="remote_addr" value="example.com" required>
+                <label for="remote_addr">远程地址:</label>
+                <input type="text" id="remote_addr" name="remote_addr" value="example.com" required>
 
-            <label for="remote_port">远程端口:</label>
-            <input type="number" id="remote_port" name="remote_port" value="80" required>
+                <label for="remote_port">远程端口:</label>
+                <input type="number" id="remote_port" name="remote_port" value="80" required>
 
-            <button type="submit">添加规则</button>
-        </form>
+                <button type="submit">添加规则</button>
+            </form>
+        </div>
 
-        <h2>现有转发规则</h2>
-        {% if rules %}
-            <table>
-                <tr>
-                    <th>ID</th>
-                    <th>协议</th>
-                    <th>本地地址:端口</th>
-                    <th>远程地址:端口</th>
-                    <th>操作</th>
-                </tr>
-                {% for rule in rules %}
+        <div class="card">
+            <h2>现有转发规则</h2>
+            {% if rules %}
+                <table>
                     <tr>
-                        <td>{{ loop.index }}</td>
-                        <td>{{ rule.protocol.upper() }}</td>
-                        <td>{{ rule.local_addr }}:{{ rule.local_port }}</td>
-                        <td>{{ rule.remote_addr }}:{{ rule.remote_port }}</td>
-                        <td>
-                            <form method="POST" action="{{ url_for('delete_rule', rule_id=loop.index0) }}">
-                                <button type="submit" class="delete-button">删除</button>
-                            </form>
-                        </td>
+                        <th>ID</th>
+                        <th>协议</th>
+                        <th>本地地址:端口</th>
+                        <th>远程地址:端口</th>
+                        <th>操作</th>
                     </tr>
-                {% endfor %}
-            </table>
-        {% else %}
-            <p>暂无转发规则。</p>
-        {% endif %}
+                    {% for rule in rules %}
+                        <tr>
+                            <td>{{ loop.index }}</td>
+                            <td>{{ rule.protocol.upper() }}</td>
+                            <td>{{ rule.local_addr }}:{{ rule.local_port }}</td>
+                            <td>{{ rule.remote_addr }}:{{ rule.remote_port }}</td>
+                            <td>
+                                <form method="POST" action="{{ url_for('delete_rule', rule_id=loop.index0) }}">
+                                    <button type="submit" class="delete-button">删除</button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            {% else %}
+                <p>暂无转发规则。</p>
+            {% endif %}
+        </div>
     </div>
 </body>
 </html>
