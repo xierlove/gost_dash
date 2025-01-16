@@ -12,6 +12,7 @@ APP_PY_URL="https://raw.githubusercontent.com/xierlove/gost_dash/refs/heads/main
 GOST_URL="https://github.com/ginuerzh/gost/releases/download/v2.11.1/gost-linux-amd64-2.11.1.gz"
 RULES_FILE="${PROJECT_DIR}/rules.json"
 SERVICE_FILE="/etc/systemd/system/gost_web.service"
+VENV_DIR="${PROJECT_DIR}/venv"
 
 # 更新系统
 echo "更新系统软件包..."
@@ -19,11 +20,7 @@ apt-get update -y && apt-get upgrade -y
 
 # 安装必要的软件包
 echo "安装必要的软件包..."
-apt-get install -y python3 python3-pip git curl ufw
-
-# 安装 Python 依赖包
-echo "安装 Python 依赖包..."
-pip3 install Flask Flask-HTTPAuth
+apt-get install -y python3 python3-pip python3-venv git curl ufw
 
 # 创建项目目录
 echo "创建项目目录 $PROJECT_DIR ..."
@@ -40,6 +37,17 @@ fi
 
 # 设置 app.py 的权限
 chmod 644 app.py
+
+# 创建虚拟环境
+echo "创建 Python 虚拟环境..."
+python3 -m venv $VENV_DIR
+
+# 激活虚拟环境并安装 Python 依赖包
+echo "安装 Python 依赖包..."
+source $VENV_DIR/bin/activate
+pip install --upgrade pip
+pip install Flask Flask-HTTPAuth
+deactivate
 
 # 下载 GOST
 echo "创建 GOST 目录 /usr/local/bin/gost ..."
@@ -90,7 +98,7 @@ After=network.target
 [Service]
 User=root
 WorkingDirectory=$PROJECT_DIR
-ExecStart=/usr/bin/python3 $PROJECT_DIR/app.py
+ExecStart=$VENV_DIR/bin/python3 $PROJECT_DIR/app.py
 Restart=always
 
 [Install]
@@ -114,6 +122,10 @@ systemctl status gost_web --no-pager
 echo "配置防火墙规则..."
 ufw allow 5000/tcp
 ufw allow 22/tcp  # 确保允许 SSH 连接
-echo "y" | ufw enable
 
+# 检查防火墙状态
+echo "查看防火墙状态..."
+ufw status
+
+# 提示完成
 echo "安装完成。请访问 http://<服务器IP>:5000"
