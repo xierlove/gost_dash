@@ -250,13 +250,13 @@ HTML_TEMPLATE = """
                 </select>
 
                 <label for="local_addr">本地地址:</label>
-                <input type="text" id="local_addr" name="local_addr" value="127.0.0.1" required>
+                <input type="text" id="local_addr" name="local_addr" value="0.0.0.0" required>
 
                 <label for="local_port">本地端口:</label>
                 <input type="number" id="local_port" name="local_port" value="8080" required>
 
                 <label for="remote_addr">远程地址:</label>
-                <input type="text" id="remote_addr" name="remote_addr" value="example.com" required>
+                <input type="text" id="remote_addr" name="remote_addr" value="127.0.0.1" required>
 
                 <label for="remote_port">远程端口:</label>
                 <input type="number" id="remote_port" name="remote_port" value="80" required>
@@ -354,8 +354,7 @@ def update_gost_service(rules):
         gost_path = '/usr/local/bin/gost/gost'  # 根据实际安装路径调整
         cmd = [gost_path]
         for rule in rules:
-            cmd.extend(['-L', f"{rule['protocol']}://{rule['local_addr']}:{rule['local_port']}"])
-            cmd.extend(['-F', f"{rule['protocol']}://{rule['remote_addr']}:{rule['remote_port']}"])
+            cmd.extend(['-L', f"{rule['protocol']}://:{rule['local_port']}/{rule['remote_addr']}:{rule['remote_port']}"]) 
 
         # 创建 systemd 服务文件内容
         service_content = f"""
