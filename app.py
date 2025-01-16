@@ -245,8 +245,6 @@ HTML_TEMPLATE = """
                 <select id="protocol" name="protocol" required>
                     <option value="tcp">TCP</option>
                     <option value="udp">UDP</option>
-                    <option value="http">HTTP</option>
-                    <option value="https">HTTPS</option>
                 </select>
 
                 <label for="local_addr">本地地址:</label>
